@@ -17,8 +17,14 @@ export function useLotoData() {
         setError(null);
 
         try {
-            // デモデータを取得
-            const response = await fetch('/data/loto6_history.json');
+            // デモデータを取得 (キャッシュ回避のためにタイムスタンプを付与)
+            const response = await fetch(`/data/loto6_history.json?t=${new Date().getTime()}`, {
+                cache: 'no-cache',
+                headers: {
+                    'Pragma': 'no-cache',
+                    'Cache-Control': 'no-cache'
+                }
+            });
 
             if (!response.ok) {
                 throw new Error('データの取得に失敗しました');
