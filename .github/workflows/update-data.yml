@@ -21,7 +21,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
       
+      # Puppeteerとその依存関係をインストール
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run update script
         run: node scripts/update-data.js
       
