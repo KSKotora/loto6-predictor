@@ -43,3 +43,7 @@ jobs:
           git add public/data/loto6_history.json
           git commit -m "🎰 Update Loto6 data - $(date +'%Y-%m-%d')"
           git push
+
+      - name: Trigger Vercel Deployment
+        if: steps.git-check.outputs.changed == 'true'
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
